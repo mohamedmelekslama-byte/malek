@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Syne', sans-serif;
+
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  
+  --color-gym-green: var(--color-gym-green);
+  --color-health-emerald: var(--color-health-emerald);
+  
+  --color-dark-bg: var(--color-dark-bg);
+  --color-card-bg: var(--color-card-bg);
+  --color-border-green: var(--color-border-green);
+  --color-text-main: var(--color-text-main);
+  --color-grid-line: var(--color-grid-line);
+}
+
+:root {
+  /* Default Dark Mode variables */
+  --color-primary: #ffffff;
+  --color-secondary: #002602;
+  --color-gym-green: #10b981;
+  --color-health-emerald: #059669;
+  
+  --color-dark-bg: #040805;
+  --color-card-bg: #09120b;
+  --color-border-green: #0e2413;
+  --color-text-main: #d1d5db;
+  --color-grid-line: #0e2413;
+  --color-scrollbar-thumb: #1a3a20;
+}
+
+:root.light {
+  /* Light Mode variables */
+  --color-primary: #040805;
+  --color-secondary: #e6f7e9;
+  --color-gym-green: #059669;
+  --color-health-emerald: #047857;
+  
+  --color-dark-bg: #f5fcf6;
+  --color-card-bg: rgba(255, 255, 255, 0.78);
+  --color-border-green: #d1ebd6;
+  --color-text-main: #1f2937;
+  --color-grid-line: rgba(16, 185, 129, 0.1);
+  --color-scrollbar-thumb: #c8ebd0;
+}
+
+/* ─── Base ─────────────────────────────────────── */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* offset for sticky navbar */
+}
+
+body {
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Lock body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ─── Custom Scrollbar ──────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-dark-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { 
+  background: var(--color-gym-green); 
+}
+
+/* ─── Glassmorphism ─────────────────────────────── */
+.glass-panel {
+  background: rgba(9, 18, 11, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(14, 36, 19, 0.55);
+}
+
+:root.light .glass-panel {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(209, 235, 214, 0.65);
+}
+
+.glass-panel-heavy {
+  background: rgba(4, 8, 5, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(14, 36, 19, 0.75);
+}
+
+:root.light .glass-panel-heavy {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(209, 235, 214, 0.85);
+}
+
+/* ─── Glow Effects ──────────────────────────────── */
+.glow-glow {
+  box-shadow: 0 0 40px rgba(0, 38, 2, 0.55), 0 0 80px rgba(0, 38, 2, 0.2);
+}
+
+:root.light .glow-glow {
+  box-shadow: 0 10px 40px rgba(5, 150, 105, 0.06), 0 0 80px rgba(5, 150, 105, 0.03);
+}
+
+.glow-green {
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+}
+
+/* ─── Focus visible ring (accessibility) ────────── */
+:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Selection ─────────────────────────────────── */
+::selection {
+  background: #10b981;
+  color: #002602;
+}
+
+/* ─── Animations ────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.animate-fade-slide-up {
+  animation: fadeSlideUp 0.6s ease-out forwards;
+}
+
+/* Skeleton shimmer for loading states */
+.shimmer {
+  background: linear-gradient(90deg, #0e2413 25%, #1a3a20 50%, #0e2413 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+:root.light .shimmer {
+  background: linear-gradient(90deg, #e2ebd5 25%, #d1ebd6 50%, #e2ebd5 75%);
+  background-size: 200% 100%;
+}
+
+/* ─── Image optimization ────────────────────────── */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ─── Smooth transition defaults ────────────────── */
+a, button {
+  transition: color 0.2s ease, background-color 0.2s ease,
+              border-color 0.2s ease, box-shadow 0.2s ease,
+              opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ─── Reduced motion accessibility ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Chatbot Typing Indicator Dots */
+@keyframes dotBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.dot {
+  animation: dotBounce 0.8s infinite ease-in-out;
+}
